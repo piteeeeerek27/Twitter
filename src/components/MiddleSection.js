@@ -7,15 +7,16 @@ import Gif from "@material-ui/icons/Gif";
 import PollIcon from "@material-ui/icons/Poll";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import ScheduleIcon from "@material-ui/icons/Schedule";
+import Posts from "./Posts";
 
 const MiddleSection = () => {
 	return (
 		<MiddleSectionContainer>
-			<MiddleSectionHeader>
-				<MiddleSectionHeaderTop>
-					<h2>Home</h2>
-					<StarOutlineIcon fontSize="medium" style={{ padding: 9 }} />
-				</MiddleSectionHeaderTop>
+			<MiddleSectionContainerTop>
+				<h2>Home</h2>
+				<StarOutlineIcon fontSize="medium" style={{ padding: 9 }} />
+			</MiddleSectionContainerTop>
+			<>
 				<MiddleSectionHeaderBottom>
 					<Top>
 						<Avatar style={{ cursor: "pointer" }} />
@@ -34,9 +35,10 @@ const MiddleSection = () => {
 						</BottomRight>
 					</Bottom>
 				</MiddleSectionHeaderBottom>
-			</MiddleSectionHeader>
-
-			<MiddleSectionPosts></MiddleSectionPosts>
+				<Posts />
+				<Posts />
+				<Posts />
+			</>
 		</MiddleSectionContainer>
 	);
 };
@@ -45,19 +47,23 @@ export default MiddleSection;
 
 const MiddleSectionContainer = styled.div`
 	flex: 0.5;
-	background: darkgreen;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 	height: 100vh;
 `;
 
-const MiddleSectionHeader = styled.div``;
-const MiddleSectionHeaderTop = styled.div`
+const MiddleSectionContainerTop = styled.div`
 	display: flex;
-	/* position: sticky; */
-	/* top: 0; */
+	position: sticky;
+	background: black;
+	z-index: 1;
+	top: 0;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.7rem;
-	border: 1px solid whitesmoke;
+	border: 1px solid gray;
 	& > .MuiSvgIcon-root:hover {
 		background: rgba(0, 0, 255, 0.267);
 		cursor: pointer;
@@ -68,7 +74,7 @@ const MiddleSectionHeaderTop = styled.div`
 	}
 `;
 const MiddleSectionHeaderBottom = styled.div`
-	border: 1px solid whitesmoke;
+	border: 1px solid gray;
 `;
 const Top = styled.div`
 	display: flex;
@@ -122,5 +128,3 @@ const BottomRight = styled.div`
 		}
 	}
 `;
-
-const MiddleSectionPosts = styled.div``;
