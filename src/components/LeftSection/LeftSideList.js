@@ -20,9 +20,9 @@ const LeftSideListContainer = styled.div`
 		margin-left: 1.2rem;
 	}
 	&:hover {
-		background: rgba(0, 0, 255, 0.267);
+		background: rgba(0, 0, 255, 0.11);
 		cursor: pointer;
-		border-radius: 80%;
+		border-radius: 20px;
 		color: #66c4ff;
 	}
 `;

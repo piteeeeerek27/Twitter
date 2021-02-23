@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { Avatar, Button } from "@material-ui/core";
-import LeftSideList from "./LeftSideList";
 import HomeIcon from "@material-ui/icons/Home";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import ExploreIcon from "@material-ui/icons/Explore";
@@ -11,6 +10,7 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import SettingsInputHdmiIcon from "@material-ui/icons/SettingsInputHdmi";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import LeftSideList from "./LeftSideList";
 
 const LeftSide = () => {
 	return (
@@ -29,10 +29,12 @@ const LeftSide = () => {
 			</TopSection>
 
 			<BottomSection>
-				<Avatar />
 				<BottomSectionMid>
-					<p>Piotr Rześny</p>
-					<span>@PiotrRzesny</span>
+					<Avatar />
+					<MoveToRight>
+						<p>Piotr Rześny</p>
+						<span>@PiotrRzesny</span>
+					</MoveToRight>
 				</BottomSectionMid>
 				<MoreHorizIcon />
 			</BottomSection>
@@ -49,6 +51,7 @@ const LeftSideContainer = styled.div`
 const TopSection = styled.div`
 	padding: 10px;
 	height: 92%;
+	width: 80%;
 	& > .MuiSvgIcon-root:hover {
 		background: rgba(0, 0, 255, 0.267);
 		cursor: pointer;
@@ -72,11 +75,17 @@ const BottomSection = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 1rem;
-	& > .MuiSvgIcon-root {
-		display: flex;
+	padding: 0 10px;
+	& > .MuiSvgIcon-root:hover {
+		color: rgb(25, 233, 248);
+		background: rgba(0, 0, 255, 0.185);
+		cursor: pointer;
+		border-radius: 80%;
 	}
 `;
 const BottomSectionMid = styled.div`
-	margin-left: -10rem;
+	display: flex;
+`;
+const MoveToRight = styled.div`
+	margin-left: 10px;
 `;

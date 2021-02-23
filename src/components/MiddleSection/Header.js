@@ -6,7 +6,10 @@ const Header = () => {
 	return (
 		<MiddleSectionHeaderContainer>
 			<h2>Home</h2>
-			<StarOutlineIcon fontSize="medium" style={{ padding: 9 }} />
+			<StarOutlineIcon
+				fontSize="medium"
+				style={{ padding: 9, color: "rgb(25, 233, 248)" }}
+			/>
 		</MiddleSectionHeaderContainer>
 	);
 };

@@ -94,7 +94,7 @@ export default Posts;
 
 const MiddleSectionPosts = styled.div`
 	border: 1px solid gray;
-	height: 60vh;
+	height: 65vh;
 	color: whitesmoke;
 	position: relative;
 	padding: 0.8rem;
@@ -121,33 +121,34 @@ const PostTopRight = styled.div`
 	flex: 0.3;
 	display: flex;
 	justify-content: flex-end;
+	& > .MuiSvgIcon-root:hover {
+		background: rgba(0, 0, 255, 0.267);
+		cursor: pointer;
+		border-radius: 80%;
+		color: rgb(25, 233, 248);
+	}
 `;
 const PostMiddleImage = styled.div`
 	img {
 		object-fit: contain;
-		max-width: 50vw;
+		max-width: 30vw;
 		margin-left: 2.8rem;
 		margin-top: 0.5rem;
 		border-radius: 20px;
 	}
-	@media (max-width: 1360px) {
+	@media (max-width: 1640px) {
 		img {
-			max-width: 40vw;
+			max-width: 25vw;
 		}
 	}
-	@media (max-width: 900px) {
-		img {
-			max-width: 35vw;
-		}
-	}
-	@media (max-width: 760px) {
-		img {
-			max-width: 30vw;
-		}
-	}
-	@media (max-width: 670px) {
+	@media (max-width: 1200px) {
 		img {
 			max-width: 20vw;
+		}
+	}
+	@media (max-width: 1080px) {
+		img {
+			max-width: 15vw;
 		}
 	}
 `;
@@ -212,7 +213,7 @@ const PostMiddleReactionsHeart = styled.div`
 `;
 const PostBottom = styled.div`
 	display: flex;
-	margin-top: 1rem;
+	margin-top: 2rem;
 	flex-direction: column;
 `;
 const PostBottomBottom = styled.div`
