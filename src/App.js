@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import LeftSide from "./components/LeftSide";
-import MiddleSection from "./components/MiddleSection";
+import MiddleSection from "./components/MiddleSection/MiddleSection";
 
 const App = () => {
 	return (

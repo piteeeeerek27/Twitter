@@ -13,20 +13,20 @@ const Posts = () => {
 			<PostTop>
 				<Avatar />
 				<PostTopLeft>
-					<PostTopLeftTop>
+					<div>
 						<strong>Elon Musk</strong>
 						<span>@email</span>
 						<span>timestamp</span>
-					</PostTopLeftTop>
-					<PostTopLeftBottom>
+					</div>
+					<div>
 						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-					</PostTopLeftBottom>
+					</div>
 				</PostTopLeft>
 				<PostTopRight>
 					<MoreHorizIcon />
 				</PostTopRight>
 			</PostTop>
-			<PostMiddle>
+			<div>
 				<PostMiddleImage>
 					<img
 						src="https://media.gettyimages.com/photos/tesla-ceo-elon-musk-speaks-during-the-unveiling-of-the-new-tesla-y-picture-id1130598318?s=612x612"
@@ -50,19 +50,19 @@ const Posts = () => {
 						<BackupIcon />
 					</PostMiddleReactionsCommentUpload>
 				</PostMiddleReactions>
-			</PostMiddle>
+			</div>
 			<PostBottom>
 				<PostTop>
 					<Avatar />
 					<PostTopLeft>
-						<PostTopLeftTop>
+						<div>
 							<strong>Elon Musk</strong>
 							<span>@email</span>
 							<span>timestamp</span>
-						</PostTopLeftTop>
-						<PostTopLeftBottom>
+						</div>
+						<div>
 							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-						</PostTopLeftBottom>
+						</div>
 					</PostTopLeft>
 					<PostTopRight>
 						<MoreHorizIcon />
@@ -117,14 +117,11 @@ const PostTopLeft = styled.div`
 		margin-left: 6px;
 	}
 `;
-const PostTopLeftTop = styled.div``;
-const PostTopLeftBottom = styled.div``;
 const PostTopRight = styled.div`
 	flex: 0.3;
 	display: flex;
 	justify-content: flex-end;
 `;
-const PostMiddle = styled.div``;
 const PostMiddleImage = styled.div`
 	img {
 		object-fit: contain;
@@ -132,6 +129,26 @@ const PostMiddleImage = styled.div`
 		margin-left: 2.8rem;
 		margin-top: 0.5rem;
 		border-radius: 20px;
+	}
+	@media (max-width: 1360px) {
+		img {
+			max-width: 40vw;
+		}
+	}
+	@media (max-width: 900px) {
+		img {
+			max-width: 35vw;
+		}
+	}
+	@media (max-width: 760px) {
+		img {
+			max-width: 30vw;
+		}
+	}
+	@media (max-width: 670px) {
+		img {
+			max-width: 20vw;
+		}
 	}
 `;
 const PostMiddleReactions = styled.div`
