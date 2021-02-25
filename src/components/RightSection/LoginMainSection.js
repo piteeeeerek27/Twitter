@@ -2,22 +2,24 @@ import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import Register from "./Register";
-import { useHistory } from "react-router-dom";
 
 const LoginMainSection = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const history = useHistory();
+	const [flex, setFlex] = useState("none");
 
-	const register = () => {
-		// auth
-		// 	.createUserWithEmailAndPassword(email, password)
-		// 	.then((authUser) => {})
-		// 	.catch((err) => alert(err.message));
+	const setStyle = (changeFlex) => {
+		setFlex(changeFlex);
 	};
-	const login = () => {
+	const ShowRegister = () => {
+		setStyle("block");
+	};
+
+	const login = (e) => {
+		e.preventDefault();
+
 		// auth
 		// 	.signInWithEmailAndPassword(email, password)
 		// 	.then((us) => {
@@ -26,26 +28,37 @@ const LoginMainSection = () => {
 		// 	})
 		// 	.catch((err) => console.error(err));
 	};
+
 	return (
 		<LoginRight>
 			<LoginHeader>
-				<input placeholder="e-mail" />
-				<input placeholder="password" />
-				<Button onClick={login}>Sign In</Button>
-				<ForgetPassword>
-					<a href="">forget password?</a>
-				</ForgetPassword>
+				<form>
+					<input
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						placeholder="e-mail"
+					/>
+					<input
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						placeholder="password"
+					/>
+					<Button onClick={login}>Sign In</Button>
+					<ForgetPassword>
+						<a href="">forget password?</a>
+					</ForgetPassword>
+				</form>
 			</LoginHeader>
 			<LoginMain>
 				<TwitterIcon />
 				<h1>The latest news from the world</h1>
 				<h3>Join Twitter.</h3>
 				<LoginMainBtns>
-					<Button>Register</Button>
+					<Button onClick={ShowRegister}>Register</Button>
 					<Button>Sign In</Button>
 				</LoginMainBtns>
 			</LoginMain>
-			<Register />
+			<Register password={password} flex={flex} setStyle={setStyle} />
 		</LoginRight>
 	);
 };
@@ -70,43 +83,45 @@ const ForgetPassword = styled.div`
 	}
 `;
 const LoginHeader = styled.div`
-	display: flex;
-	align-items: center;
-	margin-bottom: 5rem;
-	position: relative;
-	button {
-		border: 2px solid rgb(25, 233, 248);
-		color: rgb(25, 233, 248);
-		position: absolute;
-		right: 12%;
-		margin-left: 1rem;
-		margin-top: 1rem;
-		border-radius: 20px;
-		padding: 0.5rem 2rem;
-		&:hover {
-			background: rgba(0, 0, 255, 0.185);
-		}
-	}
-	input {
-		&:nth-child(2) {
-			margin-left: 1rem;
-		}
-		&::placeholder {
-			color: white;
-		}
-		margin-top: 1rem;
-		border-radius: 5px;
-		padding: 0.8rem 1rem;
-		font-size: 1.5rem;
-		background: transparent;
-		color: white;
-		border: 2px solid white;
-		outline: 0;
-		&:focus {
-			color: rgb(25, 233, 248);
+	form {
+		display: flex;
+		align-items: center;
+		margin-bottom: 5rem;
+		position: relative;
+		button {
 			border: 2px solid rgb(25, 233, 248);
+			color: rgb(25, 233, 248);
+			position: absolute;
+			right: 12%;
+			margin-left: 1rem;
+			margin-top: 1rem;
+			border-radius: 20px;
+			padding: 0.5rem 2rem;
+			&:hover {
+				background: rgba(0, 0, 255, 0.185);
+			}
+		}
+		input {
+			&:nth-child(2) {
+				margin-left: 1rem;
+			}
 			&::placeholder {
+				color: white;
+			}
+			margin-top: 1rem;
+			border-radius: 5px;
+			padding: 0.8rem 1rem;
+			font-size: 1.5rem;
+			background: transparent;
+			color: white;
+			border: 2px solid white;
+			outline: 0;
+			&:focus {
 				color: rgb(25, 233, 248);
+				border: 2px solid rgb(25, 233, 248);
+				&::placeholder {
+					color: rgb(25, 233, 248);
+				}
 			}
 		}
 	}

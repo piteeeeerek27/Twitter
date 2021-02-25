@@ -6,7 +6,7 @@ import RightSide from "./components/RightSection/RightSide";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { selectUser } from "./features/userSlice";
 import { useSelector } from "react-redux";
-import Login from "./components/Login";
+import Login from "./components/RightSection/Login";
 
 const App = () => {
 	const user = useSelector(selectUser);
