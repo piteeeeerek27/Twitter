@@ -3,14 +3,25 @@ import styled from "styled-components";
 import LeftSide from "./components/LeftSection/LeftSide";
 import MiddleSection from "./components/MiddleSection/MiddleSection";
 import RightSide from "./components/RightSection/RightSide";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { selectUser } from "./features/userSlice";
+import { useSelector } from "react-redux";
+import Login from "./components/Login";
 
 const App = () => {
+	const user = useSelector(selectUser);
 	return (
-		<AppContainer>
-			<LeftSide />
-			<MiddleSection />
-			<RightSide />
-		</AppContainer>
+		<>
+			{!user ? (
+				<Login />
+			) : (
+				<AppContainer>
+					<LeftSide />
+					<MiddleSection />
+					<RightSide />
+				</AppContainer>
+			)}
+		</>
 	);
 };
 
