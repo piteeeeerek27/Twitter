@@ -1,63 +1,39 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import CloseIcon from "@material-ui/icons/Close";
-import { IconButton } from "@material-ui/core";
-import { auth } from "../../firebase";
-import { login } from "../../features/userSlice";
-import { useDispatch } from "react-redux";
 
-const Register = ({ flex, setStyle, password }) => {
-	const [emaill, setEmaill] = useState("");
-	const dispatch = useDispatch();
-	const Changed = styled.div`
-		display: ${flex};
-	`;
-
-	const register = () => {
-		auth
-			.createUserWithEmailAndPassword(emaill, password)
-			.then((authUser) => {
-				dispatch(
-					login({
-						email: authUser.user.email,
-						uid: authUser.user.uid,
-						displayName: authUser.user.displayName,
-						photoUrl: authUser.user.photoURL,
-					}),
-				);
-			})
-			.catch((err) => alert(err.message));
-	};
-
+const Register = ({
+	register,
+	secondEmail,
+	setSecondEmail,
+	secondPassword,
+	setSecondPassword,
+}) => {
 	return (
-		<Changed>
-			<RegisterContainer>
-				<RegisterTop>
-					<IconButton onClick={() => setStyle("none")}>
-						<CloseIcon fontSize="large" />
-					</IconButton>
-					<TwitterIcon />
-					<button>further</button>
-				</RegisterTop>
-				<RegisterMiddle>
-					<form>
-						<h1>Create account</h1>
-						<input placeholder="E-mail" />
-						<input type="password" placeholder="Password" />
-						<span
-							onClick={register}
-							style={{
-								marginTop: "1rem",
-								cursor: "pointer",
-								color: "rgb(11, 127, 236)",
-							}}>
-							Register now
-						</span>
-					</form>
-				</RegisterMiddle>
-			</RegisterContainer>
-		</Changed>
+		<RegisterContainer>
+			<RegisterTop>
+				<TwitterIcon />
+				<button>further</button>
+			</RegisterTop>
+			<RegisterMiddle>
+				<form>
+					<h1>Create account</h1>
+					<input
+						type="email"
+						value={secondEmail}
+						onChange={(e) => console.log(setSecondEmail(e.target.value))}
+						placeholder="E-mail"
+					/>
+					<input
+						value={secondPassword}
+						onChange={(e) => setSecondPassword(e.target.value)}
+						type="password"
+						placeholder="Password"
+					/>
+				</form>
+				<span onClick={register}>Register now</span>
+			</RegisterMiddle>
+		</RegisterContainer>
 	);
 };
 export default Register;
@@ -66,6 +42,7 @@ const RegisterContainer = styled.div`
 	height: 40vh;
 	width: 30vw;
 	padding-top: 1rem;
+	padding-bottom: 1rem;
 	background: #000;
 	position: absolute;
 	z-index: 1;
@@ -78,7 +55,7 @@ const RegisterContainer = styled.div`
 const RegisterTop = styled.div`
 	display: flex;
 	align-items: center;
-	width: 91%;
+	width: 55%;
 	margin-left: auto;
 	padding: 10px;
 	justify-content: space-between;
@@ -102,6 +79,13 @@ const RegisterTop = styled.div`
 	}
 `;
 const RegisterMiddle = styled.div`
+	span {
+		display: flex;
+		justify-content: center;
+		margin-top: 1rem;
+		cursor: pointer;
+		color: rgb(11, 127, 236);
+	}
 	form {
 		display: flex;
 		align-items: center;

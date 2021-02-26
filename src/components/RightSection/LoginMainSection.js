@@ -4,29 +4,43 @@ import styled from "styled-components";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { auth } from "../../firebase";
 import Register from "./Register";
+import { login } from "../../features/userSlice";
+import { useDispatch } from "react-redux";
 
 const LoginMainSection = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [flex, setFlex] = useState("none");
+	const [changeState, setChangeState] = useState(false);
+	const [secondEmail, setSecondEmail] = useState("");
+	const [secondPassword, setSecondPassword] = useState("");
+	const dispatch = useDispatch();
 
-	const setStyle = (changeFlex) => {
-		setFlex(changeFlex);
-	};
 	const ShowRegister = () => {
-		setStyle("block");
+		setChangeState((prev) => !prev);
 	};
 
-	const login = (e) => {
-		e.preventDefault();
+	const register = () => {
+		auth
+			.createUserWithEmailAndPassword(secondEmail, secondPassword)
+			.then((authUser) => {
+				dispatch(
+					login({
+						email: authUser.user.email,
+						uid: authUser.user.uid,
+						displayName: authUser.user.email,
+						photoUrl: authUser.user.photoURL,
+					}),
+				);
+			})
+			.catch((error) => alert(error));
 
-		// auth
-		// 	.signInWithEmailAndPassword(email, password)
-		// 	.then((us) => {
-		// 		const user = us.user;
-		// 		console.log(user);
-		// 	})
-		// 	.catch((err) => console.error(err));
+		setChangeState(false);
+		setSecondEmail("");
+		setSecondPassword("");
+	};
+
+	const LogIn = (e) => {
+		e.preventDefault();
 	};
 
 	return (
@@ -36,14 +50,18 @@ const LoginMainSection = () => {
 					<input
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
-						placeholder="e-mail"
+						type="e-mail"
+						placeholder="E-mail"
 					/>
 					<input
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
-						placeholder="password"
+						type="password"
+						placeholder="Password"
 					/>
-					<Button onClick={login}>Sign In</Button>
+					<button type="submit" onClick={LogIn}>
+						Sign In
+					</button>
 					<ForgetPassword>
 						<a href="">forget password?</a>
 					</ForgetPassword>
@@ -54,11 +72,23 @@ const LoginMainSection = () => {
 				<h1>The latest news from the world</h1>
 				<h3>Join Twitter.</h3>
 				<LoginMainBtns>
-					<Button onClick={ShowRegister}>Register</Button>
+					<Button onClick={ShowRegister}>
+						Register <p>( tap to hide )</p>
+					</Button>
 					<Button>Sign In</Button>
 				</LoginMainBtns>
 			</LoginMain>
-			<Register password={password} flex={flex} setStyle={setStyle} />
+			{changeState ? (
+				<Register
+					register={register}
+					secondEmail={secondEmail}
+					setSecondEmail={setSecondEmail}
+					secondPassword={secondPassword}
+					setSecondPassword={setSecondPassword}
+				/>
+			) : (
+				""
+			)}
 		</LoginRight>
 	);
 };
@@ -91,9 +121,11 @@ const LoginHeader = styled.div`
 		button {
 			border: 2px solid rgb(25, 233, 248);
 			color: rgb(25, 233, 248);
-			position: absolute;
-			right: 12%;
+			background: transparent;
+			cursor: pointer;
+			font-size: 1.2rem;
 			margin-left: 1rem;
+			outline: 0;
 			margin-top: 1rem;
 			border-radius: 20px;
 			padding: 0.5rem 2rem;
@@ -155,6 +187,11 @@ const LoginMainBtns = styled.div`
 		flex: 1;
 		padding: 0.65rem 2rem;
 		border-radius: 20px;
+		p {
+			text-transform: lowercase;
+			margin-left: 0.2rem;
+			font-size: 0.7rem;
+		}
 		&:nth-child(1) {
 			background: rgb(11, 127, 236);
 			border: 2px solid rgb(11, 127, 236);
