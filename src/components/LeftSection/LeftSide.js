@@ -11,10 +11,11 @@ import SettingsInputHdmiIcon from "@material-ui/icons/SettingsInputHdmi";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import LeftSideList from "./LeftSideList";
-import { useDispatch } from "react-redux";
-import { logout } from "../../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../features/userSlice";
 
 const LeftSide = () => {
+	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
 
 	const Logged = () => {
@@ -38,10 +39,16 @@ const LeftSide = () => {
 
 			<BottomSection>
 				<BottomSectionMid>
-					<Avatar style={{ cursor: "pointer" }} onClick={Logged} />
+					<Avatar
+						style={{ cursor: "pointer" }}
+						onClick={Logged}
+						alt={user?.displayName}
+						src={user?.photoURL}
+					/>
+
 					<MoveToRight>
-						<p>Piotr Rześny</p>
-						<span>@PiotrRzesny</span>
+						<p>{user ? user.displayName : user.email}</p>
+						<span>{user.email}</span>
 					</MoveToRight>
 				</BottomSectionMid>
 				<MoreHorizIcon />

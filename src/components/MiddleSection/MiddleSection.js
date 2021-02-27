@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Posts from "./Posts";
 import Header from "./Header";
 import Send from "./Send";
 
 const MiddleSection = () => {
+	const [posts, setPosts] = useState([]);
+	const sendPost = (e) => {
+		e.preventDefault();
+	};
 	return (
 		<MiddleSectionContainer>
 			<Header />
-			<Send />
+			<Send sendPost={sendPost} />
 			<Posts />
 			<Posts />
 			<Posts />

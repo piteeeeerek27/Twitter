@@ -22,15 +22,16 @@ const LoginMainSection = () => {
 	const register = () => {
 		auth
 			.createUserWithEmailAndPassword(secondEmail, secondPassword)
-			.then((authUser) => {
+			.then(({ user }) => {
 				dispatch(
 					login({
-						email: authUser.user.email,
-						uid: authUser.user.uid,
-						displayName: authUser.user.email,
-						photoUrl: authUser.user.photoURL,
+						email: user.email,
+						uid: user.uid,
+						displayName: user.email,
+						photoUrl: user.photoURL,
 					}),
 				);
+				console.log(user);
 			})
 			.catch((error) => alert(error));
 
@@ -41,6 +42,20 @@ const LoginMainSection = () => {
 
 	const LogIn = (e) => {
 		e.preventDefault();
+		auth
+			.signInWithEmailAndPassword(email, password)
+			.then(({ user }) => {
+				dispatch(
+					login({
+						email: user.email,
+						uid: user.uid,
+						displayName: user.email,
+						photoUrl: user.photoURL,
+					}),
+				);
+				console.log(user);
+			})
+			.catch((error) => alert(error));
 	};
 
 	return (

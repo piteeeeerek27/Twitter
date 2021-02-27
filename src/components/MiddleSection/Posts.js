@@ -6,20 +6,22 @@ import RepeatIcon from "@material-ui/icons/Repeat";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import BackupIcon from "@material-ui/icons/Backup";
 import { Avatar } from "@material-ui/core";
+import { selectUser } from "../../features/userSlice";
+import { useSelector } from "react-redux";
 
 const Posts = () => {
+	const user = useSelector(selectUser);
 	return (
 		<MiddleSectionPosts>
 			<PostTop>
-				<Avatar />
+				<Avatar src={user?.photoURL} alt={user?.displayName} />
 				<PostTopLeft>
 					<div>
-						<strong>Elon Musk</strong>
-						<span>@email</span>
-						<span>timestamp</span>
+						<strong>{user ? user.displayName : user.email}</strong>
+						<span>{user?.email}</span>
 					</div>
 					<div>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+						<p>sdsasd</p>
 					</div>
 				</PostTopLeft>
 				<PostTopRight>
@@ -56,12 +58,11 @@ const Posts = () => {
 					<Avatar />
 					<PostTopLeft>
 						<div>
-							<strong>Elon Musk</strong>
-							<span>@email</span>
-							<span>timestamp</span>
+							<strong>{user ? user.displayName : user.email}</strong>
+							<span>{user?.email}</span>
 						</div>
 						<div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+							<p>COMMENTS</p>
 						</div>
 					</PostTopLeft>
 					<PostTopRight>

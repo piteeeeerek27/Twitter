@@ -7,25 +7,33 @@ import PollIcon from "@material-ui/icons/Poll";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 
-const Send = () => {
+const Send = ({ input, setInput, sendPost }) => {
 	return (
 		<SendContainer>
-			<Top>
-				<Avatar style={{ cursor: "pointer" }} />
-				<input placeholder="What's happening?" />
-			</Top>
-			<Bottom>
-				<BottomLeft>
-					<CropOriginalIcon />
-					<Gif />
-					<PollIcon />
-					<SentimentVerySatisfiedIcon />
-					<ScheduleIcon />
-				</BottomLeft>
-				<BottomRight>
-					<button>Tweet</button>
-				</BottomRight>
-			</Bottom>
+			<form>
+				<Top>
+					<Avatar style={{ cursor: "pointer" }} />
+					<input
+						value={input}
+						onChange={(e) => setInput(e.target.value)}
+						placeholder="What's happening?"
+					/>
+				</Top>
+				<Bottom>
+					<BottomLeft>
+						<CropOriginalIcon />
+						<Gif />
+						<PollIcon />
+						<SentimentVerySatisfiedIcon />
+						<ScheduleIcon />
+					</BottomLeft>
+					<BottomRight>
+						<button type="submit" onClick={sendPost}>
+							Tweet
+						</button>
+					</BottomRight>
+				</Bottom>
+			</form>
 		</SendContainer>
 	);
 };
