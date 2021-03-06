@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -11,6 +11,16 @@ import { useSelector } from "react-redux";
 
 const Posts = () => {
 	const user = useSelector(selectUser);
+	const [counter, setCounter] = useState(0);
+	const [counters, setCounters] = useState(false);
+	// const Count = () => {
+	// 	setCounters((prev) => !prev);
+	// 	if (counters) {
+	// 		setCounter(counter + 1);
+	// 	} else {
+	// 		setCounter(counter - 1);
+	// 	}
+	// };
 	return (
 		<MiddleSectionPosts>
 			<PostTop>
@@ -72,7 +82,7 @@ const Posts = () => {
 				<PostBottomBottom>
 					<PostMiddleReactionsCommentUpload>
 						<ChatBubbleOutlineIcon />
-						<span>32</span>
+						<span>33</span>
 					</PostMiddleReactionsCommentUpload>
 					<PostMiddleReactionsRepeat>
 						<RepeatIcon />
@@ -80,7 +90,7 @@ const Posts = () => {
 					</PostMiddleReactionsRepeat>
 					<PostMiddleReactionsHeart>
 						<FavoriteBorderIcon />
-						<span>2.8k</span>
+						<span>{counter}</span>
 					</PostMiddleReactionsHeart>
 					<PostMiddleReactionsCommentUpload>
 						<BackupIcon />
@@ -94,7 +104,8 @@ const Posts = () => {
 export default Posts;
 
 const MiddleSectionPosts = styled.div`
-	border: 1px solid gray;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
 	height: 65vh;
 	color: whitesmoke;
 	position: relative;

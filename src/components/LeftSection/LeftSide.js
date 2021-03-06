@@ -36,7 +36,6 @@ const LeftSide = () => {
 				<LeftSideList Icon={MoreHorizIcon} title="More" />
 				<Button>Tweet</Button>
 			</TopSection>
-
 			<BottomSection>
 				<BottomSectionMid>
 					<Avatar
@@ -45,7 +44,6 @@ const LeftSide = () => {
 						alt={user?.displayName}
 						src={user?.photoURL}
 					/>
-
 					<MoveToRight>
 						<p>{user ? user.displayName : user.email}</p>
 						<span>{user.email}</span>
