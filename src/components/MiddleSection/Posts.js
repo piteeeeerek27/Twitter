@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -8,11 +8,32 @@ import BackupIcon from "@material-ui/icons/Backup";
 import { Avatar } from "@material-ui/core";
 import { selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
+import { db } from "../../firebase";
 
-const Posts = () => {
+const Posts = ({ timestamp, message }) => {
 	const user = useSelector(selectUser);
 	const [counter, setCounter] = useState(0);
 	const [counters, setCounters] = useState(false);
+	const [comment, setComment] = useState([]);
+
+	useEffect(() => {
+		db.collection("comment").onSnapshot((snapshot) =>
+			setComment(
+				snapshot.docs.map((doc) => ({
+					data: doc.data(),
+				})),
+			),
+		);
+	}, []);
+
+	const AddComment = (e) => {
+		e.preventDefault();
+		db.collection("comment").add({
+			comment: comment,
+		});
+		setComment("");
+	};
+
 	// const Count = () => {
 	// 	setCounters((prev) => !prev);
 	// 	if (counters) {
@@ -28,10 +49,10 @@ const Posts = () => {
 				<PostTopLeft>
 					<div>
 						<strong>{user ? user.displayName : user.email}</strong>
-						<span>{user?.email}</span>
+						<span>{message}</span>
 					</div>
 					<div>
-						<p>sdsasd</p>
+						<p>{timestamp}</p>
 					</div>
 				</PostTopLeft>
 				<PostTopRight>
@@ -72,7 +93,7 @@ const Posts = () => {
 							<span>{user?.email}</span>
 						</div>
 						<div>
-							<p>COMMENTS</p>
+							<p>{comment}</p>
 						</div>
 					</PostTopLeft>
 					<PostTopRight>
@@ -96,6 +117,12 @@ const Posts = () => {
 						<BackupIcon />
 					</PostMiddleReactionsCommentUpload>
 				</PostBottomBottom>
+				<CommentBox>
+					<input type="text" placeholder="Add Comment" />
+					<button onSubmit={AddComment} type="submit">
+						Submit
+					</button>
+				</CommentBox>
 			</PostBottom>
 		</MiddleSectionPosts>
 	);
@@ -227,7 +254,34 @@ const PostBottom = styled.div`
 	display: flex;
 	margin-top: 2rem;
 	flex-direction: column;
+	input {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 `;
+const CommentBox = styled.div`
+	width: 100%;
+	display: flex-start;
+	margin-left: 1.8rem;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1rem;
+	input {
+		width: 40%;
+		padding: 5px 1rem;
+		border: none;
+		outline: 0;
+		&::placeholder {
+			font-size: 1rem;
+		}
+	}
+	button {
+		display: none;
+	}
+`;
+
 const PostBottomBottom = styled.div`
 	max-width: 40vw;
 	margin-left: 2.5rem;

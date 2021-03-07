@@ -9,6 +9,7 @@ import firebase from "firebase";
 const MiddleSection = () => {
 	const [posts, setPosts] = useState([]);
 	const [input, setInput] = useState("");
+	console.log(posts);
 
 	useEffect(() => {
 		db.collection("posts").onSnapshot((snapshot) =>
@@ -25,12 +26,10 @@ const MiddleSection = () => {
 		e.preventDefault();
 
 		db.collection("posts").add({
-			name: "piterek",
-			description: "test",
 			message: input,
-			photoUrl: "",
 			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 		});
+		setInput("");
 	};
 
 	return (
@@ -38,13 +37,11 @@ const MiddleSection = () => {
 			<Header />
 			<Send sendPost={sendPost} input={input} setInput={setInput} />
 			<Borders>
-				{posts.map((post) => {
+				{posts.map(({ id, data: { message, timestamp } }) => {
 					{
-						/* <Posts /> */
+						<Posts key={id} message={message} timestamp={timestamp} />;
 					}
 				})}
-				{/* <Posts /> */}
-				{/* <Posts /> */}
 			</Borders>
 		</MiddleSectionContainer>
 	);
