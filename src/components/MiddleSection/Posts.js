@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -9,17 +9,20 @@ import { Avatar } from "@material-ui/core";
 import { selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase";
+import Comments from "./Comments";
 
 const Posts = ({ timestamp, message }) => {
 	const user = useSelector(selectUser);
 	const [counter, setCounter] = useState(0);
 	const [counters, setCounters] = useState(false);
 	const [comment, setComment] = useState([]);
+	const [inpt, setInpt] = useState("");
 
 	useEffect(() => {
-		db.collection("comment").onSnapshot((snapshot) =>
+		db.collection("comments").onSnapshot((snapshot) =>
 			setComment(
 				snapshot.docs.map((doc) => ({
+					id: doc.id,
 					data: doc.data(),
 				})),
 			),
@@ -28,10 +31,10 @@ const Posts = ({ timestamp, message }) => {
 
 	const AddComment = (e) => {
 		e.preventDefault();
-		db.collection("comment").add({
-			comment: comment,
+		db.collection("comments").add({
+			comment: inpt,
 		});
-		setComment("");
+		setInpt("");
 	};
 
 	// const Count = () => {
@@ -42,17 +45,18 @@ const Posts = ({ timestamp, message }) => {
 	// 		setCounter(counter - 1);
 	// 	}
 	// };
+
 	return (
 		<MiddleSectionPosts>
 			<PostTop>
 				<Avatar src={user?.photoURL} alt={user?.displayName} />
 				<PostTopLeft>
-					<div>
+					<PostTopLeftDate>
 						<strong>{user ? user.displayName : user.email}</strong>
-						<span>{message}</span>
-					</div>
+						<span>{new Date(timestamp?.toDate()).toUTCString()}</span>
+					</PostTopLeftDate>
 					<div>
-						<p>{timestamp}</p>
+						<p>{message}</p>
 					</div>
 				</PostTopLeft>
 				<PostTopRight>
@@ -92,9 +96,11 @@ const Posts = ({ timestamp, message }) => {
 							<strong>{user ? user.displayName : user.email}</strong>
 							<span>{user?.email}</span>
 						</div>
-						<div>
-							<p>{comment}</p>
-						</div>
+						<PostTopLeftCom>
+							{comment.map(({ id, data: { comment } }) => (
+								<Comments key={id} comment={comment} />
+							))}
+						</PostTopLeftCom>
 					</PostTopLeft>
 					<PostTopRight>
 						<MoreHorizIcon />
@@ -118,10 +124,17 @@ const Posts = ({ timestamp, message }) => {
 					</PostMiddleReactionsCommentUpload>
 				</PostBottomBottom>
 				<CommentBox>
-					<input type="text" placeholder="Add Comment" />
-					<button onSubmit={AddComment} type="submit">
-						Submit
-					</button>
+					<form>
+						<input
+							value={inpt}
+							onChange={(e) => setInpt(e.target.value)}
+							type="text"
+							placeholder="Add Comment"
+						/>
+						<button onClick={AddComment} type="submit">
+							Submit
+						</button>
+					</form>
 				</CommentBox>
 			</PostBottom>
 		</MiddleSectionPosts>
@@ -133,7 +146,7 @@ export default Posts;
 const MiddleSectionPosts = styled.div`
 	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
-	height: 65vh;
+	height: auto;
 	color: whitesmoke;
 	position: relative;
 	padding: 0.8rem;
@@ -144,20 +157,45 @@ const PostTop = styled.div`
 const PostTopLeft = styled.div`
 	display: flex;
 	flex-direction: column;
-	flex: 0.7;
+	flex: 1;
 	strong {
 		margin-left: 6px;
 	}
 	span {
 		margin-left: 6px;
 		color: gray;
+		font-size: 10px;
 	}
 	p {
 		margin-left: 6px;
 	}
 `;
+const PostTopLeftCom = styled.div`
+	height: 10vh;
+	margin-top: 1rem;
+	width: 90%;
+	margin-bottom: 1rem;
+	margin-left: 0.3rem;
+	border: 2px solid white;
+	border-radius: 10px;
+	overflow: scroll;
+	display: flex;
+	flex-direction: column;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	p {
+		overflow-wrap: break-word;
+	}
+`;
+const PostTopLeftDate = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-right: 1rem;
+`;
+
 const PostTopRight = styled.div`
-	flex: 0.3;
 	display: flex;
 	justify-content: flex-end;
 	& > .MuiSvgIcon-root:hover {
@@ -269,10 +307,11 @@ const CommentBox = styled.div`
 	align-items: center;
 	margin-top: 1rem;
 	input {
-		width: 40%;
+		width: 80%;
 		padding: 5px 1rem;
 		border: none;
 		outline: 0;
+		background: transparent;
 		&::placeholder {
 			font-size: 1rem;
 		}

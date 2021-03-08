@@ -86,6 +86,7 @@ const BottomRight = styled.div`
 		background: #0081cf;
 		color: whitesmoke;
 		width: 100%;
+		outline: 0;
 		padding: 12px 1rem;
 		border-radius: 20px;
 		border: none;
