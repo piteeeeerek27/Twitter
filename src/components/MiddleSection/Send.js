@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Avatar } from "@material-ui/core";
 import CropOriginalIcon from "@material-ui/icons/CropOriginal";
@@ -6,8 +6,23 @@ import Gif from "@material-ui/icons/Gif";
 import PollIcon from "@material-ui/icons/Poll";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import ScheduleIcon from "@material-ui/icons/Schedule";
+import SendImage from "./SendImage";
+import { db } from "../../firebase";
+import firebase from "firebase";
 
-const Send = ({ input, setInput, sendPost }) => {
+const Send = ({ setPostImg }) => {
+	const [input, setInput] = useState("");
+	const [closeImg, setCloseImg] = useState(false);
+
+	const sendPost = (e) => {
+		e.preventDefault();
+		db.collection("posts").add({
+			message: input,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		});
+		setInput("");
+	};
+
 	return (
 		<SendContainer>
 			<form>
@@ -21,7 +36,12 @@ const Send = ({ input, setInput, sendPost }) => {
 				</Top>
 				<Bottom>
 					<BottomLeft>
-						<CropOriginalIcon />
+						{closeImg ? (
+							<SendImage setCloseImg={setCloseImg} setPostImg={setPostImg} />
+						) : (
+							""
+						)}
+						<CropOriginalIcon onClick={() => setCloseImg(true)} />
 						<Gif />
 						<PollIcon />
 						<SentimentVerySatisfiedIcon />

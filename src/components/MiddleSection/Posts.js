@@ -12,8 +12,9 @@ import { db } from "../../firebase";
 import Comments from "./Comments";
 import firebase from "firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CancelIcon from "@material-ui/icons/Cancel";
 
-const Posts = ({ timestamp, message, id }) => {
+const Posts = ({ timestamp, message, id, postImg }) => {
 	const user = useSelector(selectUser);
 	const [comment, setComment] = useState([]);
 	const [inpt, setInpt] = useState("");
@@ -67,10 +68,8 @@ const Posts = ({ timestamp, message, id }) => {
 			</PostTop>
 			<div>
 				<PostMiddleImage>
-					<img
-						src="https://media.gettyimages.com/photos/tesla-ceo-elon-musk-speaks-during-the-unveiling-of-the-new-tesla-y-picture-id1130598318?s=612x612"
-						alt=""
-					/>
+					<img src={postImg} alt="putImage" />
+					<CancelIcon />
 				</PostMiddleImage>
 				<PostMiddleReactions>
 					<PostMiddleReactionsCommentUpload>
@@ -156,7 +155,7 @@ const MiddleSectionPosts = styled.div`
 	height: auto;
 	color: whitesmoke;
 	position: relative;
-	padding: 1rem;
+	padding-top: 1rem;
 `;
 const PostTop = styled.div`
 	display: flex;
@@ -191,7 +190,8 @@ const PostTopLeftCom = styled.div`
 	width: 90%;
 	margin-bottom: 1rem;
 	margin-left: 0.3rem;
-	border: 2px solid white;
+	border: 1px solid darkgrey;
+	padding: 0 0.3rem;
 	border-radius: 10px;
 	overflow: scroll;
 	display: flex;
@@ -231,7 +231,20 @@ const PostTopHorizon = styled.div`
 	}
 `;
 const PostMiddleImage = styled.div`
+	position: relative;
+	.MuiSvgIcon-root {
+		position: absolute;
+		right: 0.8%;
+		top: 1.5%;
+		color: #0081cf;
+		&:hover {
+			color: #0089ba;
+			cursor: pointer;
+		}
+	}
 	img {
+		background: white;
+		padding: 1px;
 		object-fit: contain;
 		max-width: 30vw;
 		margin-left: 2.8rem;
@@ -333,6 +346,7 @@ const CommentBox = styled.div`
 	margin-top: 1rem;
 	input {
 		width: 80%;
+		color: white;
 		padding: 5px 1rem;
 		border: none;
 		outline: 0;

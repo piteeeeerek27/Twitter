@@ -4,11 +4,10 @@ import Posts from "./Posts";
 import Header from "./Header";
 import Send from "./Send";
 import { db } from "../../firebase";
-import firebase from "firebase";
 
 const MiddleSection = () => {
 	const [posts, setPosts] = useState([]);
-	const [input, setInput] = useState("");
+	const [postImg, setPostImg] = useState("");
 
 	useEffect(() => {
 		db.collection("posts")
@@ -23,23 +22,19 @@ const MiddleSection = () => {
 			);
 	}, []);
 
-	const sendPost = (e) => {
-		e.preventDefault();
-
-		db.collection("posts").add({
-			message: input,
-			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-		});
-		setInput("");
-	};
-
 	return (
 		<MiddleSectionContainer>
 			<Header />
-			<Send sendPost={sendPost} input={input} setInput={setInput} />
+			<Send setPostImg={setPostImg} />
 			<Borders>
 				{posts.map(({ id, data: { message, timestamp } }) => (
-					<Posts id={id} key={id} message={message} timestamp={timestamp} />
+					<Posts
+						postImg={postImg}
+						id={id}
+						key={id}
+						message={message}
+						timestamp={timestamp}
+					/>
 				))}
 			</Borders>
 		</MiddleSectionContainer>
