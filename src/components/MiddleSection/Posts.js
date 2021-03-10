@@ -10,58 +10,60 @@ import { selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase";
 import Comments from "./Comments";
+import firebase from "firebase";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-const Posts = ({ timestamp, message }) => {
+const Posts = ({ timestamp, message, id }) => {
 	const user = useSelector(selectUser);
-	const [counter, setCounter] = useState(0);
-	const [counters, setCounters] = useState(false);
 	const [comment, setComment] = useState([]);
 	const [inpt, setInpt] = useState("");
 
 	useEffect(() => {
-		db.collection("comments").onSnapshot((snapshot) =>
-			setComment(
-				snapshot.docs.map((doc) => ({
-					id: doc.id,
-					data: doc.data(),
-				})),
-			),
-		);
+		db.collection("comments")
+			.orderBy("timestampCom", "asc")
+			.onSnapshot((snapshot) =>
+				setComment(
+					snapshot.docs.map((doc) => ({
+						id: doc.id,
+						data: doc.data(),
+					})),
+				),
+			);
 	}, []);
 
 	const AddComment = (e) => {
 		e.preventDefault();
 		db.collection("comments").add({
 			comment: inpt,
+			timestampCom: firebase.firestore.FieldValue.serverTimestamp(),
 		});
 		setInpt("");
 	};
 
-	// const Count = () => {
-	// 	setCounters((prev) => !prev);
-	// 	if (counters) {
-	// 		setCounter(counter + 1);
-	// 	} else {
-	// 		setCounter(counter - 1);
-	// 	}
-	// };
+	const removePost = () => {
+		db.collection("posts").doc(id).delete();
+	};
 
 	return (
 		<MiddleSectionPosts>
 			<PostTop>
-				<Avatar src={user?.photoURL} alt={user?.displayName} />
+				<Avatar
+					style={{ marginLeft: "10px" }}
+					src={user?.photoURL}
+					alt={user?.displayName}
+				/>
 				<PostTopLeft>
 					<PostTopLeftDate>
 						<strong>{user ? user.displayName : user.email}</strong>
 						<span>{new Date(timestamp?.toDate()).toUTCString()}</span>
 					</PostTopLeftDate>
-					<div>
+					<PostTopLeftWrap>
 						<p>{message}</p>
-					</div>
+					</PostTopLeftWrap>
 				</PostTopLeft>
-				<PostTopRight>
-					<MoreHorizIcon />
-				</PostTopRight>
+				<PostTopDeletePost>
+					<DeleteIcon onClick={removePost} />
+				</PostTopDeletePost>
 			</PostTop>
 			<div>
 				<PostMiddleImage>
@@ -97,14 +99,19 @@ const Posts = ({ timestamp, message }) => {
 							<span>{user?.email}</span>
 						</div>
 						<PostTopLeftCom>
-							{comment.map(({ id, data: { comment } }) => (
-								<Comments key={id} comment={comment} />
+							{comment.map(({ id, data: { comment, timestampCom } }) => (
+								<Comments
+									timestampCom={timestampCom}
+									key={id}
+									id={id}
+									comment={comment}
+								/>
 							))}
 						</PostTopLeftCom>
 					</PostTopLeft>
-					<PostTopRight>
+					<PostTopHorizon>
 						<MoreHorizIcon />
-					</PostTopRight>
+					</PostTopHorizon>
 				</PostTop>
 				<PostBottomBottom>
 					<PostMiddleReactionsCommentUpload>
@@ -117,7 +124,7 @@ const Posts = ({ timestamp, message }) => {
 					</PostMiddleReactionsRepeat>
 					<PostMiddleReactionsHeart>
 						<FavoriteBorderIcon />
-						<span>{counter}</span>
+						<span>434</span>
 					</PostMiddleReactionsHeart>
 					<PostMiddleReactionsCommentUpload>
 						<BackupIcon />
@@ -144,15 +151,18 @@ const Posts = ({ timestamp, message }) => {
 export default Posts;
 
 const MiddleSectionPosts = styled.div`
-	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
+	width: 100%;
 	height: auto;
 	color: whitesmoke;
 	position: relative;
-	padding: 0.8rem;
+	padding: 1rem;
 `;
 const PostTop = styled.div`
 	display: flex;
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
 `;
 const PostTopLeft = styled.div`
 	display: flex;
@@ -168,6 +178,11 @@ const PostTopLeft = styled.div`
 	}
 	p {
 		margin-left: 6px;
+	}
+`;
+const PostTopLeftWrap = styled.div`
+	p {
+		word-break: break-all;
 	}
 `;
 const PostTopLeftCom = styled.div`
@@ -195,7 +210,17 @@ const PostTopLeftDate = styled.div`
 	margin-right: 1rem;
 `;
 
-const PostTopRight = styled.div`
+const PostTopDeletePost = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	& > .MuiSvgIcon-root:hover {
+		background: rgba(0, 0, 255, 0.267);
+		cursor: pointer;
+		border-radius: 80%;
+		color: rgb(25, 233, 248);
+	}
+`;
+const PostTopHorizon = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	& > .MuiSvgIcon-root:hover {

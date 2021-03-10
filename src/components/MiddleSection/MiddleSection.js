@@ -11,14 +11,16 @@ const MiddleSection = () => {
 	const [input, setInput] = useState("");
 
 	useEffect(() => {
-		db.collection("posts").onSnapshot((snapshot) =>
-			setPosts(
-				snapshot.docs.map((doc) => ({
-					id: doc.id,
-					data: doc.data(),
-				})),
-			),
-		);
+		db.collection("posts")
+			.orderBy("timestamp", "asc")
+			.onSnapshot((snapshot) =>
+				setPosts(
+					snapshot.docs.map((doc) => ({
+						id: doc.id,
+						data: doc.data(),
+					})),
+				),
+			);
 	}, []);
 
 	const sendPost = (e) => {
@@ -37,7 +39,7 @@ const MiddleSection = () => {
 			<Send sendPost={sendPost} input={input} setInput={setInput} />
 			<Borders>
 				{posts.map(({ id, data: { message, timestamp } }) => (
-					<Posts key={id} message={message} timestamp={timestamp} />
+					<Posts id={id} key={id} message={message} timestamp={timestamp} />
 				))}
 			</Borders>
 		</MiddleSectionContainer>

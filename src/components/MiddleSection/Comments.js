@@ -1,44 +1,54 @@
 import React from "react";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Date } from "prismic-reactjs";
+// import { Date } from "prismic-reactjs";
+import { db } from "../../firebase";
 
-const Comments = ({ comment }) => {
+const Comments = ({ comment, id, timestampCom }) => {
+	const removeCom = () => {
+		return db.collection("comments").doc(id).delete();
+	};
 	return (
 		<CommentsContainer>
 			<CommentsInfo>
 				<p>{comment}</p>
-				<span>time</span>
+				<span>{new Date(timestampCom?.toDate()).toUTCString()}</span>
 			</CommentsInfo>
 			<CommentsDelete>
-				<DeleteIcon fontSize="small" />
+				<DeleteIcon onClick={removeCom} fontSize="small" />
 			</CommentsDelete>
 		</CommentsContainer>
 	);
 };
 
 export default Comments;
-
 const CommentsContainer = styled.div`
 	display: flex;
-	align-items: center;
-	&:hover {
-		background: rgb(8, 8, 8);
-		cursor: pointer;
-	}
-	p {
-		margin-top: 0.3rem;
-	}
+	position: relative;
 `;
+
 const CommentsInfo = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	flex: 0.9;
+	flex: 1;
+	position: relative;
+	flex-wrap: wrap;
+	padding: 5px 0;
+	p {
+		margin-left: 0.5rem;
+		max-width: 60%;
+		font-size: 0.7rem;
+	}
+	span {
+		position: absolute;
+		right: 7%;
+		top: 5px;
+	}
 `;
 const CommentsDelete = styled.div`
-	flex: 0.1;
-	margin-left: 1rem;
+	position: absolute;
+	right: 5px;
 	.MuiSvgIcon-root:hover {
 		background: rgba(0, 0, 255, 0.267);
 		cursor: pointer;
