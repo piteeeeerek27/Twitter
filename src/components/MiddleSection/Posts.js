@@ -14,10 +14,12 @@ import firebase from "firebase";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CancelIcon from "@material-ui/icons/Cancel";
 
-const Posts = ({ timestamp, message, id, postImg }) => {
+const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 	const user = useSelector(selectUser);
 	const [comment, setComment] = useState([]);
 	const [inpt, setInpt] = useState("");
+	const [hrt, setHrt] = useState(true);
+	const [hrtCount, setHrtCount] = useState(0);
 
 	useEffect(() => {
 		db.collection("comments")
@@ -45,6 +47,15 @@ const Posts = ({ timestamp, message, id, postImg }) => {
 		db.collection("posts").doc(id).delete();
 	};
 
+	const addHeart = () => {
+		setHrt(!hrt);
+		if (hrt) {
+			setHrtCount(hrtCount + 1);
+		} else {
+			setHrtCount(hrtCount - 1);
+		}
+	};
+
 	return (
 		<MiddleSectionPosts>
 			<PostTop>
@@ -68,8 +79,14 @@ const Posts = ({ timestamp, message, id, postImg }) => {
 			</PostTop>
 			<div>
 				<PostMiddleImage>
-					<img src={postImg} alt="putImage" />
-					<CancelIcon />
+					{postImg ? (
+						<>
+							<img src={postImg} alt="putImage" />
+							<CancelIcon onClick={() => setPostImg("")} />
+						</>
+					) : (
+						""
+					)}
 				</PostMiddleImage>
 				<PostMiddleReactions>
 					<PostMiddleReactionsCommentUpload>
@@ -80,9 +97,10 @@ const Posts = ({ timestamp, message, id, postImg }) => {
 						<RepeatIcon />
 						<span>407</span>
 					</PostMiddleReactionsRepeat>
-					<PostMiddleReactionsHeart>
-						<FavoriteBorderIcon />
-						<span>2.8k</span>
+					<PostMiddleReactionsHeart
+						style={hrt ? { color: "white" } : { color: "red" }}>
+						<FavoriteBorderIcon onClick={addHeart} />
+						<span>{hrtCount}</span>
 					</PostMiddleReactionsHeart>
 					<PostMiddleReactionsCommentUpload>
 						<BackupIcon />
@@ -123,7 +141,7 @@ const Posts = ({ timestamp, message, id, postImg }) => {
 					</PostMiddleReactionsRepeat>
 					<PostMiddleReactionsHeart>
 						<FavoriteBorderIcon />
-						<span>434</span>
+						<span>443</span>
 					</PostMiddleReactionsHeart>
 					<PostMiddleReactionsCommentUpload>
 						<BackupIcon />

@@ -29,6 +29,7 @@ const MiddleSection = () => {
 			<Borders>
 				{posts.map(({ id, data: { message, timestamp } }) => (
 					<Posts
+						setPostImg={setPostImg}
 						postImg={postImg}
 						id={id}
 						key={id}
