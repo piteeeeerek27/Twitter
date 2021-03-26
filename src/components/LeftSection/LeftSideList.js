@@ -16,8 +16,12 @@ const LeftSideListContainer = styled.div`
 	display: flex;
 	align-items: center;
 	margin: 10px 0;
+	& > .MuiSvgIcon-root {
+		color: whitesmoke;
+	}
 	h3 {
 		margin-left: 1.2rem;
+		color: whitesmoke;
 	}
 	&:hover {
 		background: rgba(0, 0, 255, 0.11);
