@@ -78,7 +78,7 @@ const LoginMainSection = () => {
 						Sign In
 					</button>
 					<ForgetPassword>
-						<a href="">forget password?</a>
+						<a href="">Forget password?</a>
 					</ForgetPassword>
 				</form>
 			</LoginHeader>

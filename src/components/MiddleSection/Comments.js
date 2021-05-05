@@ -34,11 +34,11 @@ const CommentsInfo = styled.div`
 	flex: 1;
 	position: relative;
 	flex-wrap: wrap;
-	padding: 5px 0;
+	padding: 5, 1px 0;
 	p {
 		margin-left: 0.5rem;
 		max-width: 60%;
-		font-size: 0.7rem;
+		font-size: 0.71rem;
 	}
 	span {
 		position: absolute;

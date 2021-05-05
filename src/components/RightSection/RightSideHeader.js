@@ -25,12 +25,12 @@ const RightSideHeaderContainer = styled.div`
 	}
 	input {
 		flex: 1;
-		margin-left: 10px;
+		margin-left: 10.1px;
 		background: transparent;
 		border: none;
 		outline: 0;
 		color: whitesmoke;
-		font-size: 14px;
+		font-size: 14.1px;
 		&::placeholder {
 			color: gray;
 		}

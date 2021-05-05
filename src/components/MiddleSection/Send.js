@@ -31,7 +31,7 @@ const Send = ({ setPostImg }) => {
 					<input
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
-						placeholder="What's happening?"
+						placeholder="What's happening ?"
 					/>
 				</Top>
 				<Bottom>

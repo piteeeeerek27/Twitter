@@ -24,7 +24,7 @@ const MiddleSectionHeaderContainer = styled.div`
 	top: 0;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0.7rem;
+	padding: 0.71rem;
 	border: 1px solid gray;
 	& > .MuiSvgIcon-root:hover {
 		background: rgba(0, 0, 255, 0.267);
