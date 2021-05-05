@@ -31,7 +31,10 @@ const LeftSide = () => {
 						<ul>
 							<li>
 								<Link to="/Twitter">
-									<TwitterIcon fontSize="large" style={{ padding: 7 }} />
+									<TwitterIcon
+										fontSize="large"
+										style={{ padding: 7, color: "lightblue" }}
+									/>
 								</Link>
 							</li>
 							<li>
