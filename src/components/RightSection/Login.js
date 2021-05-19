@@ -27,7 +27,7 @@ export default Login;
 const LoginContainer = styled.div`
 	height: 100vh;
 	display: flex;
-	width: 100vw;
+	width: 100%;
 `;
 const LoginLeft = styled.div`
 	width: 50%;
