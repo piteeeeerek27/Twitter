@@ -20,7 +20,7 @@ const WorthWatching = () => {
 export default WorthWatching;
 
 const WorthWatchingContainer = styled.div`
-	height: 25vh;
+	height: auto;
 	background: rgb(21, 24, 28);
 	margin-top: 1rem;
 	border-radius: 20px;
@@ -35,15 +35,17 @@ const WorthWatchingHeader = styled.div`
 	}
 `;
 const WorthWatchingShowMore = styled.div`
-	position: relative;
 	span {
-		position: absolute;
-		left: 15px;
-		top: 15px;
 		display: flex;
 		align-items: center;
 		color: rgb(18, 160, 170);
 		font-size: 1.1rem;
+		padding: 1rem;
+		justify-content: center;
 		cursor: pointer;
+		font-weight: bold;
+		&:hover {
+			color: rgb(18, 130, 170);
+		}
 	}
 `;

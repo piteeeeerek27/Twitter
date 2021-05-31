@@ -24,7 +24,7 @@ const MostPopular = () => {
 export default MostPopular;
 
 const MostPopularContainer = styled.div`
-	height: 58vh;
+	height: auto;
 	background: rgb(21, 24, 28);
 	margin-top: 1rem;
 	border-radius: 20px;
@@ -38,7 +38,7 @@ const MostPopularHeader = styled.div`
 	border-bottom: 1px solid gray;
 	span {
 		flex: 0.9;
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 		font-weight: bold;
 	}
 	& > .MuiSvgIcon-root:hover {
@@ -53,15 +53,17 @@ const MostPopularHeader = styled.div`
 	}
 `;
 const MostPopularShowMore = styled.div`
-	position: relative;
 	span {
-		position: absolute;
-		left: 15px;
-		top: 15px;
 		display: flex;
 		align-items: center;
 		color: rgb(18, 160, 170);
 		font-size: 1.1rem;
+		padding: 1rem;
+		justify-content: center;
 		cursor: pointer;
+		font-weight: bold;
+		&:hover {
+			color: rgb(18, 130, 170);
+		}
 	}
 `;

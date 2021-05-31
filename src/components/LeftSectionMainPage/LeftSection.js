@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import { Avatar, Button } from "@material-ui/core";
@@ -10,22 +10,22 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import SettingsInputHdmiIcon from "@material-ui/icons/SettingsInputHdmi";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import LeftSideList from "./LeftSideList";
+import LeftSectionList from "./LeftSectionList";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../features/userSlice";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
-const LeftSide = () => {
+const LeftSection = () => {
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
 
 	const Logged = () => {
-		console.log(dispatch(logout()));
+		dispatch(logout());
 	};
 
 	return (
 		<Router>
-			<LeftSideContainer>
+			<LeftSectionContainer>
 				<TopSection>
 					<nav>
 						<ul>
@@ -39,42 +39,48 @@ const LeftSide = () => {
 							</li>
 							<li>
 								<Link to="/Home">
-									<LeftSideList Icon={HomeIcon} title="Home" />
+									<LeftSectionList Icon={HomeIcon} title="Home" />
 								</Link>
 							</li>
 							<li>
 								<Link to="/Explore">
-									<LeftSideList Icon={NotificationsNoneIcon} title="Explore" />
+									<LeftSectionList
+										Icon={NotificationsNoneIcon}
+										title="Explore"
+									/>
 								</Link>
 							</li>
 							<li>
 								<Link to="/Notifications">
-									<LeftSideList Icon={ExploreIcon} title="Notifications" />
+									<LeftSectionList Icon={ExploreIcon} title="Notifications" />
 								</Link>
 							</li>
 							<li>
 								<Link to="/Messages">
-									<LeftSideList Icon={MailOutlineIcon} title="Messages" />
+									<LeftSectionList Icon={MailOutlineIcon} title="Messages" />
 								</Link>
 							</li>
 							<li>
 								<Link to="/Lists">
-									<LeftSideList Icon={ListAltIcon} title="Lists" />
+									<LeftSectionList Icon={ListAltIcon} title="Lists" />
 								</Link>
 							</li>
 							<li>
 								<Link to="/Connect">
-									<LeftSideList Icon={SettingsInputHdmiIcon} title="Connect" />
+									<LeftSectionList
+										Icon={SettingsInputHdmiIcon}
+										title="Connect"
+									/>
 								</Link>
 							</li>
 							<li>
 								<Link to="/Profile">
-									<LeftSideList Icon={PersonOutlineIcon} title="Profile" />
+									<LeftSectionList Icon={PersonOutlineIcon} title="Profile" />
 								</Link>
 							</li>
 							<li>
 								<Link to="/More">
-									<LeftSideList Icon={MoreHorizIcon} title="More" />
+									<LeftSectionList Icon={MoreHorizIcon} title="More" />
 								</Link>
 							</li>
 						</ul>
@@ -96,15 +102,17 @@ const LeftSide = () => {
 					</BottomSectionMid>
 					<MoreHorizIcon />
 				</BottomSection>
-			</LeftSideContainer>
+			</LeftSectionContainer>
 		</Router>
 	);
 };
 
-export default LeftSide;
+export default LeftSection;
 
-const LeftSideContainer = styled.div`
-	flex: 0.2;
+const LeftSectionContainer = styled.div`
+	flex: 0.25;
+	min-height: 680px;
+	max-height: 990px;
 `;
 
 const TopSection = styled.div`

@@ -1,23 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import LeftSide from "./components/LeftSection/LeftSide";
-import MiddleSection from "./components/MiddleSection/MiddleSection";
-import RightSide from "./components/RightSection/RightSide";
+import LeftSection from "./components/LeftSectionMainPage/LeftSection";
+import MiddleSection from "./components/MiddleSectionMainPage/MiddleSection";
+import RightSection from "./components/RightSection/RightSection";
 import { selectUser } from "./features/userSlice";
 import { useSelector } from "react-redux";
-import Login from "./components/RightSection/Login";
+import Login from "./components/RightSection/Login/Login";
 
 const App = () => {
 	const user = useSelector(selectUser);
+
 	return (
 		<>
 			{!user ? (
 				<Login />
 			) : (
 				<AppContainer>
-					<LeftSide />
+					<LeftSection />
 					<MiddleSection />
-					<RightSide />
+					<RightSection />
 				</AppContainer>
 			)}
 		</>

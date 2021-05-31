@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import { auth } from "../../firebase";
-import Register from "./Register";
-import { login } from "../../features/userSlice";
+import { auth } from "../../../firebase";
+import Register from "../Register/Register";
+import { login } from "../../../features/userSlice";
 import { useDispatch } from "react-redux";
 
 const LoginMainSection = () => {
@@ -16,7 +16,7 @@ const LoginMainSection = () => {
 	const dispatch = useDispatch();
 
 	const ShowRegister = () => {
-		setChangeState((prev) => !prev);
+		setChangeState(prev => !prev);
 	};
 
 	const register = () => {
@@ -33,14 +33,14 @@ const LoginMainSection = () => {
 				);
 				console.log(user);
 			})
-			.catch((error) => alert(error));
+			.catch(error => alert(error));
 
 		setChangeState(false);
 		setSecondEmail("");
 		setSecondPassword("");
 	};
 
-	const LogIn = (e) => {
+	const LogIn = e => {
 		e.preventDefault();
 		auth
 			.signInWithEmailAndPassword(email, password)
@@ -55,7 +55,7 @@ const LoginMainSection = () => {
 				);
 				console.log(user);
 			})
-			.catch((error) => alert(error));
+			.catch(error => alert(error));
 	};
 
 	return (
@@ -64,13 +64,13 @@ const LoginMainSection = () => {
 				<form>
 					<input
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={e => setEmail(e.target.value)}
 						type="e-mail"
 						placeholder="E-mail"
 					/>
 					<input
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={e => setPassword(e.target.value)}
 						type="password"
 						placeholder="Password"
 					/>

@@ -18,15 +18,15 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 	const user = useSelector(selectUser);
 	const [comment, setComment] = useState([]);
 	const [inpt, setInpt] = useState("");
-	const [hrt, setHrt] = useState(true);
-	const [hrtCount, setHrtCount] = useState(0);
+	const [heart, setHrt] = useState(true);
+	const [heartCount, setHeartCount] = useState(0);
 
 	useEffect(() => {
 		db.collection("comments")
 			.orderBy("timestampCom", "asc")
-			.onSnapshot((snapshot) =>
+			.onSnapshot(snapshot =>
 				setComment(
-					snapshot.docs.map((doc) => ({
+					snapshot.docs.map(doc => ({
 						id: doc.id,
 						data: doc.data(),
 					})),
@@ -34,7 +34,7 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 			);
 	}, []);
 
-	const AddComment = (e) => {
+	const AddComment = e => {
 		e.preventDefault();
 		db.collection("comments").add({
 			comment: inpt,
@@ -48,11 +48,11 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 	};
 
 	const addHeart = () => {
-		setHrt(!hrt);
-		if (hrt) {
-			setHrtCount(hrtCount + 1);
+		setHrt(!heart);
+		if (heart) {
+			setHeartCount(heartCount + 1);
 		} else {
-			setHrtCount(hrtCount - 1);
+			setHeartCount(heartCount - 1);
 		}
 	};
 
@@ -98,9 +98,9 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 						<span>407</span>
 					</PostMiddleReactionsRepeat>
 					<PostMiddleReactionsHeart
-						style={hrt ? { color: "white" } : { color: "red" }}>
+						style={heart ? { color: "white" } : { color: "red" }}>
 						<FavoriteBorderIcon onClick={addHeart} />
-						<span>{hrtCount}</span>
+						<span>{heartCount}setHeartCount</span>
 					</PostMiddleReactionsHeart>
 					<PostMiddleReactionsCommentUpload>
 						<BackupIcon />
@@ -151,7 +151,7 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 					<form>
 						<input
 							value={inpt}
-							onChange={(e) => setInpt(e.target.value)}
+							onChange={e => setInpt(e.target.value)}
 							type="text"
 							placeholder="Add Comment"
 						/>

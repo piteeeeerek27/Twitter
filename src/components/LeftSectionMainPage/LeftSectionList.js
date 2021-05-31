@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const LeftSideList = ({ Icon, title }) => {
+const LeftSectionList = ({ Icon, title }) => {
 	return (
-		<LeftSideListContainer>
+		<LeftSectionListContainer>
 			{Icon && <Icon fontSize="large" style={{ padding: 7 }} />}
 			{Icon && <h3>{title}</h3>}
-		</LeftSideListContainer>
+		</LeftSectionListContainer>
 	);
 };
 
-export default LeftSideList;
+export default LeftSectionList;
 
-const LeftSideListContainer = styled.div`
+const LeftSectionListContainer = styled.div`
 	display: flex;
 	align-items: center;
 	margin: 10px 0;

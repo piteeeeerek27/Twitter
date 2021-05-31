@@ -4,7 +4,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 
 const SendImage = ({ setPostImg, setCloseImg }) => {
 	const [iMg, setIMg] = useState("");
-	const addImage = (e) => {
+	const addImage = e => {
 		e.preventDefault();
 		setPostImg(iMg);
 		setIMg("");
@@ -15,8 +15,8 @@ const SendImage = ({ setPostImg, setCloseImg }) => {
 				<form>
 					<input
 						value={iMg}
-						onChange={(e) => setIMg(e.target.value)}
-						placeholder="Url"
+						onChange={e => setIMg(e.target.value)}
+						placeholder="Paste Url"
 					/>
 					<button type="submit" onClick={addImage}>
 						Send
@@ -35,37 +35,35 @@ const SendImageContainer = styled.div`
 `;
 
 const PutImage = styled.div`
-	background: rgb(19, 19, 19);
+	background: whitesmoke;
 	display: grid;
 	place-items: center;
-	color: white;
+	color: black;
 	border-radius: 20px;
-	height: auto;
-	min-height: 6vh;
-	min-width: 18vw;
 	position: absolute;
-	left: 5rem;
-	top: -1rem;
+	left: 3rem;
+	top: 3rem;
 	form {
 		position: relative;
+		display: flex;
+		align-items: center;
 		input {
+			min-height: 40px;
+			padding: 5px;
+			max-width: 180px;
 			background: transparent;
 			color: white;
 			font-size: 1.2rem;
 			border: none;
 			border-radius: 20px;
-			height: 3.5vh;
-			width: 14vw;
-			padding-left: 0.5rem;
+			padding-left: 1rem;
 			outline: 0;
-			margin-right: 2rem;
 			&::placeholder {
-				color: white;
+				color: black;
 			}
 		}
 		.MuiSvgIcon-root {
-			position: absolute;
-			right: -0.5rem;
+			margin-right: 0.5rem;
 			font-size: 2rem;
 			color: #0081cf;
 			&:hover {

@@ -12,9 +12,9 @@ const MiddleSection = () => {
 	useEffect(() => {
 		db.collection("posts")
 			.orderBy("timestamp", "asc")
-			.onSnapshot((snapshot) =>
+			.onSnapshot(snapshot =>
 				setPosts(
-					snapshot.docs.map((doc) => ({
+					snapshot.docs.map(doc => ({
 						id: doc.id,
 						data: doc.data(),
 					})),
@@ -47,16 +47,17 @@ export default MiddleSection;
 const MiddleSectionContainer = styled.div`
 	flex: 0.5;
 	overflow-y: scroll;
+	height: 100vh;
+	max-height: auto;
+	min-height: 900px;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-top: 1px solid gray;
 	&::-webkit-scrollbar {
 		display: none;
 	}
-	height: 100vh;
 `;
 const Borders = styled.div`
-	border-top: 1px solid gray;
-	border-right: 1px solid gray;
-	border-left: 1px solid gray;
-	height: 100vh;
 	color: white;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
