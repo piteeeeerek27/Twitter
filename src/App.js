@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import LeftSection from "./components/LeftSectionMainPage/LeftSection";
-import MiddleSection from "./components/MiddleSectionMainPage/MiddleSection";
+import MiddleSection from "./components/PostsSection/MiddleSection";
 import RightSection from "./components/RightSection/RightSection";
-import { selectUser } from "./features/userSlice";
-import { useSelector } from "react-redux";
-import Login from "./components/RightSection/Login/Login";
+import { login, logout, selectUser } from "./features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Login from "./components/Login/Login";
+import { auth } from "./firebase";
 
 const App = () => {
 	const user = useSelector(selectUser);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		auth.onAuthStateChanged((userAuth) => {
+			if (userAuth) {
+				dispatch(
+					login({
+						email: userAuth.email,
+						uid: userAuth.uid,
+						displayName: userAuth.email,
+						photoUrl: userAuth.photoURL,
+					}),
+				);
+			}
+			if (!userAuth) dispatch(logout());
+		});
+	}, []);
 
 	return (
 		<>

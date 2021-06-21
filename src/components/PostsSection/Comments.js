@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import DeleteIcon from "@material-ui/icons/Delete";
-// import { Date } from "prismic-reactjs";
 import { db } from "../../firebase";
 
 const Comments = ({ comment, id, timestampCom }) => {
