@@ -26,6 +26,7 @@ export default MostPopular;
 const MostPopularContainer = styled.div`
 	height: auto;
 	background: rgb(21, 24, 28);
+	min-width: 400px;
 	margin-top: 1rem;
 	border-radius: 20px;
 	border: 1px solid gray;

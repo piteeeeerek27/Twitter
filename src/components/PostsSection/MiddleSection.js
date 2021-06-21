@@ -4,17 +4,19 @@ import Posts from "./Posts";
 import Header from "./Header";
 import Send from "./Send";
 import { db } from "../../firebase";
+import firebase from "firebase";
 
 const MiddleSection = () => {
 	const [posts, setPosts] = useState([]);
 	const [postImg, setPostImg] = useState("");
+	const [input, setInput] = useState("");
 
 	useEffect(() => {
 		db.collection("posts")
 			.orderBy("timestamp", "asc")
-			.onSnapshot(snapshot =>
+			.onSnapshot((snapshot) =>
 				setPosts(
-					snapshot.docs.map(doc => ({
+					snapshot.docs.map((doc) => ({
 						id: doc.id,
 						data: doc.data(),
 					})),
@@ -22,10 +24,29 @@ const MiddleSection = () => {
 			);
 	}, []);
 
+	const sendPost = (e) => {
+		e.preventDefault();
+		console.log(posts);
+
+		db.collection("posts").add({
+			name: "Pioter",
+			description: "test",
+			message: input,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		});
+
+		setInput("");
+	};
+
 	return (
 		<MiddleSectionContainer>
 			<Header />
-			<Send setPostImg={setPostImg} />
+			<Send
+				setPostImg={setPostImg}
+				sendPost={sendPost}
+				input={input}
+				setInput={setInput}
+			/>
 			<Borders>
 				{posts.map(({ id, data: { message, timestamp } }) => (
 					<Posts
@@ -50,6 +71,7 @@ const MiddleSectionContainer = styled.div`
 	height: 100vh;
 	max-height: auto;
 	min-height: 900px;
+	min-width: 500px;
 	border-left: 1px solid gray;
 	border-right: 1px solid gray;
 	border-top: 1px solid gray;

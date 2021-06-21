@@ -7,21 +7,20 @@ import PollIcon from "@material-ui/icons/Poll";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import SendImage from "./SendImage";
-import { db } from "../../firebase";
-import firebase from "firebase";
 
-const Send = ({ setPostImg }) => {
-	const [input, setInput] = useState("");
+const Send = ({ setPostImg, sendPost, setInput, input }) => {
 	const [closeImg, setCloseImg] = useState(false);
 
-	const sendPost = (e) => {
-		e.preventDefault();
-		db.collection("posts").add({
-			message: input,
-			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-		});
-		setInput("");
-	};
+	// useEffect(() => {
+	// 	db.collection("posts").onSnapshot((snapshot) => {
+	// 		setPosts(
+	// 			snapshot.docs.map((doc) => ({
+	// 				id: doc.id,
+	// 				data: doc.data(),
+	// 			})),
+	// 		);
+	// 	});
+	// }, []);
 
 	return (
 		<SendContainer>
@@ -48,7 +47,7 @@ const Send = ({ setPostImg }) => {
 						<ScheduleIcon />
 					</BottomLeft>
 					<BottomRight>
-						<button type="submit" onClick={sendPost}>
+						<button onClick={sendPost} type="submit">
 							Tweet
 						</button>
 					</BottomRight>

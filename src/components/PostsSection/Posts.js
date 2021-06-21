@@ -24,9 +24,9 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 	useEffect(() => {
 		db.collection("comments")
 			.orderBy("timestampCom", "asc")
-			.onSnapshot(snapshot =>
+			.onSnapshot((snapshot) =>
 				setComment(
-					snapshot.docs.map(doc => ({
+					snapshot.docs.map((doc) => ({
 						id: doc.id,
 						data: doc.data(),
 					})),
@@ -34,7 +34,7 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 			);
 	}, []);
 
-	const AddComment = e => {
+	const AddComment = (e) => {
 		e.preventDefault();
 		db.collection("comments").add({
 			comment: inpt,
@@ -49,11 +49,8 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 
 	const addHeart = () => {
 		setHrt(!heart);
-		if (heart) {
-			setHeartCount(heartCount + 1);
-		} else {
-			setHeartCount(heartCount - 1);
-		}
+		if (heart) setHeartCount(heartCount + 1);
+		if (!heart) setHeartCount(heartCount - 1);
 	};
 
 	return (
@@ -77,7 +74,7 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 					<DeleteIcon onClick={removePost} />
 				</PostTopDeletePost>
 			</PostTop>
-			<div>
+			<>
 				<PostMiddleImage>
 					{postImg ? (
 						<>
@@ -106,15 +103,15 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 						<BackupIcon />
 					</PostMiddleReactionsCommentUpload>
 				</PostMiddleReactions>
-			</div>
+			</>
 			<PostBottom>
 				<PostTop>
 					<Avatar />
 					<PostTopLeft>
-						<div>
+						<>
 							<strong>{user ? user.displayName : user.email}</strong>
 							<span>{user?.email}</span>
-						</div>
+						</>
 						<PostTopLeftCom>
 							{comment.map(({ id, data: { comment, timestampCom } }) => (
 								<Comments
@@ -151,7 +148,7 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 					<form>
 						<input
 							value={inpt}
-							onChange={e => setInpt(e.target.value)}
+							onChange={(e) => setInpt(e.target.value)}
 							type="text"
 							placeholder="Add Comment"
 						/>
