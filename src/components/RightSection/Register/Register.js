@@ -83,6 +83,7 @@ const RegisterTop = styled.div`
 	width: 100%;
 	padding: 10px;
 	justify-content: space-between;
+	/* animation: ${(props) => props.changeState} 1s ease-in-out backwards; */
 	button {
 		background: rgb(11, 127, 236);
 		color: Whitesmoke;
@@ -112,6 +113,16 @@ const RegisterTop = styled.div`
 		100% {
 			transform: translateY(0px);
 			opacity: 1;
+		}
+	}
+	@keyframes hide {
+		100% {
+			opacity: 1;
+			transform: translateY(0px);
+		}
+		0% {
+			transform: translateY(-800px);
+			opacity: 0;
 		}
 	}
 `;
