@@ -1,62 +1,86 @@
 import React from "react";
 import styled from "styled-components";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import { Button } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const Register = ({
 	register,
-	secondEmail,
-	setSecondEmail,
-	secondPassword,
-	setSecondPassword,
+	createAccountEmail,
+	setCreateAccountEmail,
+	createAccountPassword,
+	setCreateAccountPassword,
+	RegisterPopUp,
 }) => {
 	return (
 		<RegisterContainer>
 			<RegisterTop>
+				<CancelIcon onClick={RegisterPopUp} />
 				<TwitterIcon />
 				<button>further</button>
 			</RegisterTop>
-			<RegisterMiddle>
+			<RegisterBox>
 				<form>
 					<h1>Create account</h1>
 					<input
 						type="email"
-						value={secondEmail}
-						onChange={(e) => console.log(setSecondEmail(e.target.value))}
+						value={createAccountEmail}
+						onChange={(e) => setCreateAccountEmail(e.target.value)}
 						placeholder="E-mail"
 					/>
 					<input
-						value={secondPassword}
-						onChange={(e) => setSecondPassword(e.target.value)}
+						value={createAccountPassword}
+						onChange={(e) => setCreateAccountPassword(e.target.value)}
 						type="password"
 						placeholder="Password"
 					/>
 				</form>
-				<span onClick={register}>Register now</span>
-			</RegisterMiddle>
+				<Button onClick={register}>Register now</Button>
+			</RegisterBox>
 		</RegisterContainer>
 	);
 };
 export default Register;
 
 const RegisterContainer = styled.div`
-	height: 40vh;
-	width: 30vw;
+	-webkit-box-shadow: 5px 5px 50px 24px #000000;
+	box-shadow: 5px 5px 50px 24px #000000;
 	padding-top: 1rem;
-	padding-bottom: 1rem;
-	background: #000;
+	padding-bottom: 0.2rem;
+	background: #2b2b2b;
+	min-width: 450px;
+	min-height: 380px;
 	position: absolute;
 	z-index: 1;
 	color: white;
 	top: 30%;
-	left: 32%;
-	right: 50%;
+	left: 12%;
 	border-radius: 20px;
+	animation: drop 1s ease-in-out backwards;
+	@media (max-width: 1500px) {
+		left: 9%;
+	}
+	@media (max-width: 1315px) {
+		left: 7%;
+	}
+	@media (max-width: 1215px) {
+		left: 5%;
+	}
+	@media (max-width: 1115px) {
+		left: 3%;
+	}
+	@media (max-width: 1015px) {
+		left: 1%;
+	}
+	@media (max-width: 980px) {
+		left: 0%;
+	}
 `;
 const RegisterTop = styled.div`
 	display: flex;
+	position: relative;
 	align-items: center;
-	width: 55%;
-	margin-left: auto;
+	width: 100%;
 	padding: 10px;
 	justify-content: space-between;
 	button {
@@ -66,21 +90,36 @@ const RegisterTop = styled.div`
 		padding: 0.5rem 1rem;
 		border: none;
 		font-size: 1rem;
+		margin-right: 20px;
 		outline: 0;
-		margin-right: 2rem;
 		cursor: pointer;
 		&:hover {
 			background: rgb(32, 147, 255);
 		}
 	}
 	& > .MuiSvgIcon-root {
-		font-size: 3rem;
-		margin-right: 2rem;
+		font-size: 2.5rem;
+	}
+	& .MuiSvgIcon-root:hover {
+		color: rgb(32, 147, 255);
+		cursor: pointer;
+	}
+	@keyframes drop {
+		0% {
+			opacity: 0;
+			transform: translateY(-800px);
+		}
+		100% {
+			transform: translateY(0px);
+			opacity: 1;
+		}
 	}
 `;
-const RegisterMiddle = styled.div`
-	span {
+
+const RegisterBox = styled.div`
+	& > Button {
 		display: flex;
+		width: 100%;
 		justify-content: center;
 		margin-top: 1rem;
 		cursor: pointer;

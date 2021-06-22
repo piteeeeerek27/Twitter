@@ -11,17 +11,17 @@ const LoginMainSection = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [changeState, setChangeState] = useState(false);
-	const [secondEmail, setSecondEmail] = useState("");
-	const [secondPassword, setSecondPassword] = useState("");
+	const [createAccountEmail, setCreateAccountEmail] = useState("");
+	const [createAccountPassword, setCreateAccountPassword] = useState("");
 	const dispatch = useDispatch();
 
-	const ShowRegister = () => {
-		setChangeState((prev) => !prev);
+	const RegisterPopUp = () => {
+		setChangeState(!changeState);
 	};
 
 	const register = () => {
 		auth
-			.createUserWithEmailAndPassword(secondEmail, secondPassword)
+			.createUserWithEmailAndPassword(createAccountEmail, createAccountPassword)
 			.then(({ user }) => {
 				dispatch(
 					login({
@@ -34,9 +34,13 @@ const LoginMainSection = () => {
 			})
 			.catch((error) => alert(error));
 
-		setChangeState(false);
-		setSecondEmail("");
-		setSecondPassword("");
+		if (createAccountEmail === "" || createAccountPassword === "")
+			setChangeState(false);
+		if (createAccountEmail !== "" || createAccountPassword !== "")
+			setChangeState(true);
+
+		setCreateAccountEmail("");
+		setCreateAccountPassword("");
 	};
 
 	const LogIn = (e) => {
@@ -75,29 +79,26 @@ const LoginMainSection = () => {
 					<button type="submit" onClick={LogIn}>
 						Sign In
 					</button>
-					<ForgetPassword>
-						<a href="">Forget password?</a>
-					</ForgetPassword>
 				</form>
+				<a href="#">Forget password?</a>
 			</LoginHeader>
 			<LoginMain>
 				<TwitterIcon />
 				<h1>The latest news from the world</h1>
 				<h3>Join Twitter.</h3>
 				<LoginMainBtns>
-					<Button onClick={ShowRegister}>
-						Register <p>( tap to hide )</p>
-					</Button>
+					<Button onClick={RegisterPopUp}>Register</Button>
 					<Button>Sign In</Button>
 				</LoginMainBtns>
 			</LoginMain>
 			{changeState ? (
 				<Register
+					RegisterPopUp={RegisterPopUp}
 					register={register}
-					secondEmail={secondEmail}
-					setSecondEmail={setSecondEmail}
-					secondPassword={secondPassword}
-					setSecondPassword={setSecondPassword}
+					createAccountEmail={createAccountEmail}
+					setCreateAccountEmail={setCreateAccountEmail}
+					createAccountPassword={createAccountPassword}
+					setcreateAccountPassword={setCreateAccountPassword}
 				/>
 			) : (
 				""
@@ -111,25 +112,25 @@ export default LoginMainSection;
 const LoginRight = styled.div`
 	height: 100vh;
 	width: 50%;
+	overflow-y: scroll;
 	margin-left: 2rem;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
-const ForgetPassword = styled.div`
-	position: absolute;
-	top: 5rem;
-	left: 22.5rem;
+const LoginHeader = styled.div`
 	a {
+		display: flex;
 		text-decoration: none;
 		color: rgb(11, 127, 236);
 		&:hover {
 			text-decoration: underline;
 		}
 	}
-`;
-const LoginHeader = styled.div`
 	form {
 		display: flex;
 		align-items: center;
-		margin-bottom: 5rem;
+		margin-bottom: 5px;
 		position: relative;
 		button {
 			border: 2px solid rgb(25, 233, 248);
@@ -170,11 +171,41 @@ const LoginHeader = styled.div`
 			}
 		}
 	}
+	@media (max-width: 1665px) {
+		form {
+			display: flex;
+			input {
+				width: 50%;
+			}
+			button {
+				min-width: 130px;
+			}
+		}
+	}
+	@media (max-width: 930px) {
+		a {
+			margin-top: 5px !important;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			input {
+				margin-left: 0px !important;
+				margin-right: auto !important;
+				width: 80%;
+			}
+			button {
+				margin-left: 0px !important;
+				margin-right: auto !important;
+			}
+		}
+	}
 `;
 
 const LoginMain = styled.div`
 	display: flex;
 	flex-direction: column;
+	margin-top: 5rem;
 	color: white;
 	h1 {
 		margin: 3rem 0;
@@ -187,6 +218,31 @@ const LoginMain = styled.div`
 	& > .MuiSvgIcon-root {
 		font-size: 5rem;
 		margin-top: 5rem;
+	}
+	@media (max-width: 1725px) {
+		h1 {
+			font-size: 4rem;
+		}
+		h3 {
+			font-size: 3rem;
+		}
+	}
+	@media (max-width: 1537px) {
+		h1 {
+			font-size: 3.5rem;
+		}
+		h3 {
+			font-size: 2.5rem;
+		}
+	}
+	@media (max-width: 932px) {
+		margin-top: 0px !important;
+		h1 {
+			font-size: 3rem;
+		}
+		h3 {
+			font-size: 2rem;
+		}
 	}
 `;
 
@@ -217,6 +273,11 @@ const LoginMainBtns = styled.div`
 			&:hover {
 				background: rgba(0, 0, 255, 0.185);
 			}
+		}
+	}
+	@media (max-width: 578px) {
+		button:nth-child(2) {
+			padding: 0px 2rem;
 		}
 	}
 `;
