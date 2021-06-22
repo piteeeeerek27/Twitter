@@ -5,6 +5,7 @@ import Header from "./Header";
 import Send from "./Send";
 import { db } from "../../firebase";
 import firebase from "firebase";
+import Comments from "./EachComment";
 
 const MiddleSection = () => {
 	const [posts, setPosts] = useState([]);
@@ -49,14 +50,17 @@ const MiddleSection = () => {
 			/>
 			<Borders>
 				{posts.map(({ id, data: { message, timestamp } }) => (
-					<Posts
-						setPostImg={setPostImg}
-						postImg={postImg}
-						id={id}
-						key={id}
-						message={message}
-						timestamp={timestamp}
-					/>
+					<div>
+						<Posts
+							setPostImg={setPostImg}
+							postImg={postImg}
+							id={id}
+							key={id}
+							message={message}
+							timestamp={timestamp}
+						/>
+						{/* <Comments /> */}
+					</div>
 				))}
 			</Borders>
 		</MiddleSectionContainer>

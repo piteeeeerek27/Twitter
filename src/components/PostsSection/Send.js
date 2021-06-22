@@ -11,17 +11,6 @@ import SendImage from "./SendImage";
 const Send = ({ setPostImg, sendPost, setInput, input }) => {
 	const [closeImg, setCloseImg] = useState(false);
 
-	// useEffect(() => {
-	// 	db.collection("posts").onSnapshot((snapshot) => {
-	// 		setPosts(
-	// 			snapshot.docs.map((doc) => ({
-	// 				id: doc.id,
-	// 				data: doc.data(),
-	// 			})),
-	// 		);
-	// 	});
-	// }, []);
-
 	return (
 		<SendContainer>
 			<form>

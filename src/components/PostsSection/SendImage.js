@@ -4,7 +4,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 
 const SendImage = ({ setPostImg, setCloseImg }) => {
 	const [iMg, setIMg] = useState("");
-	const addImage = e => {
+	const addImage = (e) => {
 		e.preventDefault();
 		setPostImg(iMg);
 		setIMg("");
@@ -15,7 +15,7 @@ const SendImage = ({ setPostImg, setCloseImg }) => {
 				<form>
 					<input
 						value={iMg}
-						onChange={e => setIMg(e.target.value)}
+						onChange={(e) => setIMg(e.target.value)}
 						placeholder="Paste Url"
 					/>
 					<button type="submit" onClick={addImage}>
@@ -32,6 +32,7 @@ export default SendImage;
 
 const SendImageContainer = styled.div`
 	position: relative;
+	z-index: 100;
 `;
 
 const PutImage = styled.div`
