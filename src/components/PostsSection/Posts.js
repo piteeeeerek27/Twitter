@@ -105,13 +105,13 @@ const Posts = ({ timestamp, message, id, postImg, setPostImg }) => {
 					</PostMiddleReactionsCommentUpload>
 				</PostMiddleReactions>
 			</>
-			{/* <Comments
+			<Comments
 				id={id}
 				comment={comment}
 				AddComment={AddComment}
 				inpt={inpt}
 				setInpt={setInpt}
-			/> */}
+			/>
 		</MiddleSectionPosts>
 	);
 };

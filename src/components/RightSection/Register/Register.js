@@ -29,9 +29,9 @@ const Register = ({
 						placeholder="E-mail"
 					/>
 					<input
+						type="password"
 						value={createAccountPassword}
 						onChange={(e) => setCreateAccountPassword(e.target.value)}
-						type="password"
 						placeholder="Password"
 					/>
 				</form>

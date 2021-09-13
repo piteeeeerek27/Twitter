@@ -51,7 +51,7 @@ const LoginMainSection = () => {
 				dispatch(
 					login({
 						email: user.email,
-						uid: user.uid,
+						ui2d: user.uid,
 						displayName: user.email,
 						photoUrl: user.photoURL,
 					}),
@@ -98,7 +98,7 @@ const LoginMainSection = () => {
 					createAccountEmail={createAccountEmail}
 					setCreateAccountEmail={setCreateAccountEmail}
 					createAccountPassword={createAccountPassword}
-					setcreateAccountPassword={setCreateAccountPassword}
+					setCreateAccountPassword={setCreateAccountPassword}
 				/>
 			) : (
 				""
@@ -114,6 +114,7 @@ const LoginRight = styled.div`
 	width: 50%;
 	overflow-y: scroll;
 	margin-left: 2rem;
+	margin-top: 1rem;
 	&::-webkit-scrollbar {
 		display: none;
 	}
@@ -128,21 +129,22 @@ const LoginHeader = styled.div`
 		}
 	}
 	form {
+		max-width: 95%;
 		display: flex;
 		align-items: center;
+		justify-content: flex-start;
 		margin-bottom: 5px;
-		position: relative;
 		button {
 			border: 2px solid rgb(25, 233, 248);
 			color: rgb(25, 233, 248);
 			background: transparent;
 			cursor: pointer;
-			font-size: 1.2rem;
+			font-size: 1.1rem;
 			margin-left: 1rem;
 			outline: 0;
 			margin-top: 1rem;
 			border-radius: 20px;
-			padding: 0.5rem 2rem;
+			padding: 0.4rem 2rem;
 			&:hover {
 				background: rgba(0, 0, 255, 0.185);
 			}
@@ -156,8 +158,8 @@ const LoginHeader = styled.div`
 			}
 			margin-top: 1rem;
 			border-radius: 5px;
-			padding: 0.8rem 1rem;
-			font-size: 1.5rem;
+			padding: 0.5rem 0.8rem;
+			font-size: 1rem;
 			background: transparent;
 			color: white;
 			border: 2px solid white;
@@ -170,15 +172,27 @@ const LoginHeader = styled.div`
 				}
 			}
 		}
-	}
-	@media (max-width: 1665px) {
-		form {
-			display: flex;
+		@media (max-width: 1622px) {
 			input {
-				width: 50%;
+				font-size: 0.8rem;
 			}
 			button {
-				min-width: 130px;
+				padding: 0.3rem 1.8rem;
+			}
+		}
+		@media (max-width: 1405px) {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			width: 50%;
+			background-color: skyblue;
+			input {
+				&:nth-child(2) {
+					margin-left: 0rem;
+				}
+			}
+			button {
+				margin-left: 0;
 			}
 		}
 	}
@@ -192,7 +206,7 @@ const LoginHeader = styled.div`
 			input {
 				margin-left: 0px !important;
 				margin-right: auto !important;
-				width: 80%;
+				width: 60%;
 			}
 			button {
 				margin-left: 0px !important;
@@ -205,14 +219,13 @@ const LoginHeader = styled.div`
 const LoginMain = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin-top: 5rem;
 	color: white;
 	h1 {
 		margin: 3rem 0;
-		font-size: 4.5rem;
+		font-size: 2.5rem;
 	}
 	h3 {
-		font-size: 3.5rem;
+		font-size: 2rem;
 		margin-bottom: 2rem;
 	}
 	& > .MuiSvgIcon-root {
@@ -221,27 +234,22 @@ const LoginMain = styled.div`
 	}
 	@media (max-width: 1725px) {
 		h1 {
-			font-size: 4rem;
+			font-size: 2rem;
 		}
 		h3 {
-			font-size: 3rem;
+			font-size: 1.5rem;
+		}
+		& > .MuiSvgIcon-root {
+			font-size: 4rem;
+			margin-top: 5rem;
 		}
 	}
 	@media (max-width: 1537px) {
 		h1 {
-			font-size: 3.5rem;
+			font-size: 1.5rem;
 		}
 		h3 {
-			font-size: 2.5rem;
-		}
-	}
-	@media (max-width: 932px) {
-		margin-top: 0px !important;
-		h1 {
-			font-size: 3rem;
-		}
-		h3 {
-			font-size: 2rem;
+			font-size: 1.3rem;
 		}
 	}
 `;
